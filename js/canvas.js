@@ -7,6 +7,8 @@ class Board {
     this.board.height = 500;
     this.spheres = [];
     this.running = true;
+    this.showTriangleSides = false;
+    this.showHypotenuse = false;
   }
 
   clearBoard() {
@@ -17,22 +19,6 @@ class Board {
     if (this.spheres.length < 2) { // max of 2 spheres in the board
       // eslint-disable-next-line no-undef
       this.spheres.push(new Sphere(this.board, posX, posY, radius, speed));
-    }
-  }
-
-  triangleSides() {
-    // draw hypotenuse
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.spheres[0].x, this.spheres[0].y);
-    this.ctx.lineTo(this.spheres[1].x, this.spheres[1].y);
-    this.ctx.stroke();
-
-    // draw triangle's adjacent and opposite sides
-    for (let i = 0; i < 2; i += 1) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(this.spheres[i].x, this.spheres[i].y);
-      this.ctx.lineTo(this.spheres[0].x, this.spheres[1].y);
-      this.ctx.stroke();
     }
   }
 
@@ -55,19 +41,48 @@ class Board {
   distanceBtwCenters() {
     // Length of the first side is given by |X1 - X2|
     const L1 = Math.abs(this.spheres[0].x - this.spheres[1].x);
-
     // Length of the second side is given by |Y1 - Y2|
     const L2 = Math.abs(this.spheres[0].y - this.spheres[1].y);
-
     // By the Pythagorean theorem, the hypothenuse^2 = L1ˆ2 + L2^2
     const HIP = Math.sqrt((L1 ** 2) + (L2 ** 2));
+    return [HIP, L1, L2];
+  }
 
-    return HIP;
+  triangleSides() {
+    const HIP = this.distanceBtwCenters()[0];
+    const L1 = this.distanceBtwCenters()[1];
+    const L2 = this.distanceBtwCenters()[2];
+    let styleHIP = 'black';
+    let styleL = 'black';
+
+    if (HIP > L1 || HIP > L2) {
+      styleHIP = 'red';
+      styleL = 'blue';
+    }
+    if (this.showHypotenuse) {
+      // draw hypotenuse
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = styleHIP;
+      this.ctx.moveTo(this.spheres[0].x, this.spheres[0].y);
+      this.ctx.lineTo(this.spheres[1].x, this.spheres[1].y);
+      this.ctx.stroke();
+    }
+    if (this.showTriangleSides) {
+      // draw triangle's adjacent and opposite sides
+      for (let i = 0; i < 2; i += 1) {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = styleL;
+        this.ctx.moveTo(this.spheres[i].x, this.spheres[i].y);
+        this.ctx.lineTo(this.spheres[0].x, this.spheres[1].y);
+        this.ctx.stroke();
+      }
+    }
   }
 
   checkSphereCollision() {
-    if (this.distanceBtwCenters() <= this.spheres[0].radius + this.spheres[1].radius) {
+    if (this.distanceBtwCenters()[0] <= this.spheres[0].radius + this.spheres[1].radius) {
       // We have a collision!
+      console.log('Collision!');
     }
   }
 

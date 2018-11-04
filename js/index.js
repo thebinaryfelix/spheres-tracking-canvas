@@ -1,5 +1,7 @@
 window.onload = () => {
+  const drawHypotenuse = document.getElementById('toggle-hypotenuse');
   const toggleBtn = document.getElementById('toggle-animation');
+  const drawSides = document.getElementById('toggle-sides');
   const canvas = document.getElementById('board');
   // eslint-disable-next-line no-undef
   const playground = new Board(canvas);
@@ -16,6 +18,22 @@ window.onload = () => {
       playground.startEngine();
     } else {
       playground.running = false;
+    }
+  });
+
+  drawHypotenuse.addEventListener('click', () => {
+    if (playground.showHypotenuse) {
+      playground.showHypotenuse = false;
+    } else {
+      playground.showHypotenuse = true;
+    }
+  });
+
+  drawSides.addEventListener('click', () => {
+    if (playground.showTriangleSides) {
+      playground.showTriangleSides = false;
+    } else {
+      playground.showTriangleSides = true;
     }
   });
 };
