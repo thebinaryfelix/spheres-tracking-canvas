@@ -3,7 +3,7 @@ class Board {
   constructor(canvas) {
     this.board = canvas;
     this.ctx = this.board.getContext('2d');
-    this.board.width = 500;
+    this.board.width = 800;
     this.board.height = 500;
     this.spheres = [];
     this.running = true;
@@ -23,6 +23,7 @@ class Board {
   }
 
   draw() {
+    this.triangleSides();
     // draw Spheres
     if (this.spheres.length !== 0) {
       this.spheres.forEach(sphere => sphere.draw());
@@ -49,13 +50,11 @@ class Board {
   }
 
   triangleSides() {
-    const HIP = this.distanceBtwCenters()[0];
-    const L1 = this.distanceBtwCenters()[1];
-    const L2 = this.distanceBtwCenters()[2];
+    const sides = this.distanceBtwCenters();
     let styleHIP = 'black';
     let styleL = 'black';
 
-    if (HIP > L1 || HIP > L2) {
+    if (sides[0] > sides[1] || sides[0] > sides[2]) {
       styleHIP = 'red';
       styleL = 'blue';
     }
@@ -86,6 +85,11 @@ class Board {
     }
   }
 
+  drawCurrentState() {
+    this.clearBoard();
+    this.draw();
+  }
+
   updateBoard() {
     this.draw();
     this.move();
@@ -97,9 +101,8 @@ class Board {
         clearInterval(this.interval);
       }
       this.clearBoard();
-      this.triangleSides();
-      this.checkSphereCollision();
       this.updateBoard();
+      this.checkSphereCollision();
     }, 1000 / 60);
   }
 }

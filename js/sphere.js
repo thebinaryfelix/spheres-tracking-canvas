@@ -1,15 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 class Sphere {
-  constructor(board, x = 10, y = 10, r = 10, speed = 20) {
+  constructor(board, x = 10, y = 10, r = 10) {
     this.board = board;
     this.ctx = board.getContext('2d');
+    if (y < r) y = r;
 
     this.radius = r;
     this.x = x;
     this.y = y;
 
-    this.speedX = speed;
-    this.speedY = speed;
+    this.speedX = 300 / this.radius;
+    this.speedY = 300 / this.radius;
 
     this.directionX = 1;
     this.directionY = 1;
