@@ -50,18 +50,10 @@ class Board {
   }
 
   triangleSides() {
-    const sides = this.distanceBtwCenters();
-    let styleHIP = 'black';
-    let styleL = 'black';
-
-    if (sides[0] > sides[1] || sides[0] > sides[2]) {
-      styleHIP = 'red';
-      styleL = 'blue';
-    }
     if (this.showHypotenuse) {
       // draw hypotenuse
       this.ctx.beginPath();
-      this.ctx.strokeStyle = styleHIP;
+      this.ctx.strokeStyle = 'red';
       this.ctx.moveTo(this.spheres[0].x, this.spheres[0].y);
       this.ctx.lineTo(this.spheres[1].x, this.spheres[1].y);
       this.ctx.stroke();
@@ -70,7 +62,7 @@ class Board {
       // draw triangle's adjacent and opposite sides
       for (let i = 0; i < 2; i += 1) {
         this.ctx.beginPath();
-        this.ctx.strokeStyle = styleL;
+        this.ctx.strokeStyle = 'blue';
         this.ctx.moveTo(this.spheres[i].x, this.spheres[i].y);
         this.ctx.lineTo(this.spheres[0].x, this.spheres[1].y);
         this.ctx.stroke();
@@ -99,10 +91,11 @@ class Board {
     this.interval = setInterval(() => {
       if (!this.running) {
         clearInterval(this.interval);
+      } else {
+        this.clearBoard();
+        this.updateBoard();
+        this.checkSphereCollision();
       }
-      this.clearBoard();
-      this.updateBoard();
-      this.checkSphereCollision();
     }, 1000 / 60);
   }
 }
