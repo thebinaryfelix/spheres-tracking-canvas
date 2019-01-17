@@ -1,21 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
 body{
   margin: 0;
   padding: 0;
-}
-
-#board-holder{
-  width: 80%;
-  margin: auto;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #1d1d1d;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 
 canvas{
   border: 1px solid #000000;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+
+#board-holder{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .btn-holder{
+  width: 50%;
+  margin: 0 auto;
   display: flex;
+  margin-top: 20px;
+  justify-content: space-evenly;
+}
+
+.btn-holder > a {
+  height: 25px;
+  text-align: center;
+  padding: 10px 15px 5px 15px;
+  font-size: 0.9em;
+  color: rgb(99, 99, 99);
+  border-radius: 5px;
+  border: 1px solid rgb(27, 27, 27);
+  background: rgb(231,231,231);
+  background: linear-gradient(0deg, rgba(231,231,231,1) 0%, rgba(255,255,255,1) 100%);
+  user-select: none;
+}
+
+.btn-holder > a:focus {
+  outline: none;
+}
+
+.btn-holder > a:hover {
+  cursor: pointer;
+}
+
+.btn-holder > a:active {
+  border: 1px solid rgb(109, 109, 109);
+  background: rgb(172,172,172);
+  background: linear-gradient(0deg, rgba(172,172,172,1) 0%, rgba(232,232,232,1) 100%);
+}
+
+@media(max-width: 1024px) {
+  .btn-holder{
+    width: 100%;
+  }
+}
+
+@media(max-width: 768px) {
+  .btn-holder{
+    width: 50%;
+    flex-direction: column;
+  }
 }

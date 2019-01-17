@@ -1,18 +1,15 @@
 window.onload = () => {
-  const drawHypotenuse = document.getElementById('toggle-hypotenuse');
-  const drawSides = document.getElementById('toggle-sides');
-  const toggleBtn = document.getElementById('toggle-animation');
   const canvas = document.getElementById('board');
   // eslint-disable-next-line no-undef
   const playground = new Board(canvas);
 
-  // createSphere(positionX, positionY, radius)
+  // (positionX, positionY, radius)
   playground.createSphere(190, 10, 30);
   playground.createSphere(280, 80, 10);
 
   playground.startEngine();
 
-  toggleBtn.addEventListener('click', () => {
+  document.getElementById('toggle-animation').addEventListener('click', () => {
     if (!playground.running) {
       playground.running = true;
       playground.startEngine();
@@ -21,23 +18,21 @@ window.onload = () => {
     }
   });
 
-  drawHypotenuse.addEventListener('click', () => {
-    if (playground.showHypotenuse) {
-      playground.showHypotenuse = false;
-      playground.drawCurrentState();
-    } else {
-      playground.showHypotenuse = true;
-      playground.drawCurrentState();
-    }
+  document.getElementById('toggle-hypotenuse').addEventListener('click', () => {
+    playground.showHypotenuse = !playground.showHypotenuse;
+    playground.drawCurrentState();
   });
 
-  drawSides.addEventListener('click', () => {
-    if (playground.showTriangleSides) {
-      playground.showTriangleSides = false;
-      playground.drawCurrentState();
-    } else {
-      playground.showTriangleSides = true;
-      playground.drawCurrentState();
-    }
+  document.getElementById('toggle-sides').addEventListener('click', () => {
+    playground.showTriangleSides = !playground.showTriangleSides;
+    playground.drawCurrentState();
   });
+
+  window.addEventListener(
+    'resize',
+    function() {
+      document.getElementById('board').setAttribute('width', window.innerWidth - 100);
+    },
+    false
+  );
 };
