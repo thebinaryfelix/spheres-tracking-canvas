@@ -1,12 +1,14 @@
 # spheres-tracking-canvas
+
 A simple demonstration of how to monitor collisions using spherical objects in Canvas.
 
 [Take a look!](https://thebinaryfelix.github.io/spheres-tracking-canvas/)
 
 ## Concept
+
 Usually, when we see moving objects on a screen, we don't fully comprehend how they're linked together.
 
-Every collision between two objects in space can be described with coordinates as being vertices of a triangle. That way, you can monitor the collisions using precise coordinates.
+Every collision between two objects in a bidimensional space can be described as coordinates on the vertices of a triangle. That way, you can precisely monitor the collisions.
 
 ### Description
 
